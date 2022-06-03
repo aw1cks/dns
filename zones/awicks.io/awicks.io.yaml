@@ -1,0 +1,106 @@
+---
+
+# Apex
+'':
+  # CNAMEs are not supported at the apex
+  # ALIAS must be used instead
+  - type: ALIAS
+    ttl: 3600
+    value: aw1cks.github.io.
+
+    # MX for email delivery
+    # Only one provider, stackmail
+  - type: MX
+    ttl: 3600
+    values:
+      - exchange: mx.stackmail.com.
+        preference: 10
+
+    # SPF record for email
+    # Include stackmail's SPF
+    # N.B. using TXT type since cloudflare throws an error for SPF type
+  - type: TXT
+    ttl: 3600
+    value: v=spf1 include:spf.stackmail.com a mx -all
+
+_dmarc:
+  type: TXT
+  ttl: 3600
+  # p=quarantine -> Quarantine mail that doesn't match SPF
+  value: >-
+    v=DMARC1\;
+    p=quarantine\;
+    rua=mailto:bfd2a46a@mxtoolbox.dmarc-report.com\;
+
+# Email client autodiscovery
+autodiscover:
+  type: CNAME
+  ttl: 3600
+  value: autodiscover.stackmail.com.
+
+# MX discovery
+mail:
+  type: CNAME
+  ttl: 3600
+  value: mx.stackmail.com.
+
+# IMAP discovery
+imap:
+  type: CNAME
+  ttl: 3600
+  value: imap.stackmail.com.
+
+# DKIM key
+s1._domainkey:
+  type: TXT
+  ttl: 3600
+  value: v=DKIM1\;k=rsa\;h=sha256\;g=*\;n=\;s=*\;t=s\;p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmVIVFVjbs/EDLPnREE8uTVBFdOw3s5k5DnEIVO379hy9/T41zH3guKg3AeRkt1nfrDPkg/vJ5Accnj3k78oHheS5E3itqg0lA32Rw+SIVGZW+npuK46FPiug4N4+bKHcIgwN2OPRZvuGHnwYqL+UlDQ8a5IMkqhLAt2WBdO1a6eaN6OsktVZzj4x7z39TabVChKEOkqpP00OfrFHrc4MWrhyx71lXmpQ75ug9TMMnFTZQiDtyLJ/O0MBDYfrQVMQZlp+IlxzRpKGepKxfNJFMBLFut+EqAxOWCWjbx2/Dbwe/40oTUnPi0Q6dKifVBJ/5wJvioFs9BNnijUB7i3DGQIDAQAB
+
+# SMTP discovery
+smtp:
+  type: CNAME
+  ttl: 3600
+  value: smtp.stackmail.com.
+
+# email WebUI
+webmail:
+  type: CNAME
+  ttl: 3600
+  value: stackmail.com.
+
+
+
+lf:
+  type: A
+  ttl: 3600
+  values:
+    - 88.97.11.80
+
+k8s:
+  - type: A
+    ttl: 3600
+    values:
+      - 51.195.149.224
+  - type: AAAA
+    ttl: 3600
+    values:
+      - 2001:41d0:801:2000::2e06
+
+mumble: &k8s_cname
+  type: CNAME
+  ttl: 3600
+  value: k8s.awicks.io.
+
+
+
+cv: &aw1cks_github_pages
+  type: CNAME
+  ttl: 3600
+  value: aw1cks.github.io.
+www:
+  <<: *aw1cks_github_pages
+
+home: &aw1cks_forks_github_pages
+  type: CNAME
+  ttl: 3600
+  value: aw1cks-forks.github.io.

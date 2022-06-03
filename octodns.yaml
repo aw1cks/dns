@@ -1,0 +1,47 @@
+---
+
+
+common_providers:
+  - &yaml_provider
+    class: octodns.provider.yaml.YamlProvider
+    default_ttl: 3600
+    enforce_order: False
+
+manager:
+  include_meta: False
+  max_workers: 2
+
+providers:
+  awicks_io:
+    <<: *yaml_provider
+    directory: ./zones/awicks.io
+
+  alexwicks_io:
+    <<: *yaml_provider
+    directory: ./zones/alexwicks.io
+
+  cloudflare:
+    class: octodns_cloudflare.CloudflareProvider
+    email: env/CLOUDFLARE_EMAIL
+    token: env/CLOUDFLARE_TOKEN
+
+
+  gcore:
+    class: octodns_gcore.GCoreProvider
+    token: env/GCORE_TOKEN
+    token_type: APIKey
+
+zones:
+  awicks.io.:
+    sources:
+      - awicks_io
+    targets:
+      - cloudflare
+      - gcore
+
+  alexwicks.io.:
+    sources:
+      - alexwicks_io
+    targets:
+      - cloudflare
+      - gcore
