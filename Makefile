@@ -11,8 +11,8 @@ ENVVARS := \
     CLOUDFLARE_EMAIL="$$(pass cloudflare/email)" \
     DO_TOKEN="$$(pass digitalocean/token)"
 .PHONY: plan
-plan:
+plan: venv
 	env $(ENVVARS) sh -c '. venv/bin/activate && octodns-sync $(OCTODNS_ARGS)'
 .PHONY: apply
-apply:
+apply: venv
 	env $(ENVVARS) sh -c '. venv/bin/activate && octodns-sync $(OCTODNS_ARGS) --doit'
