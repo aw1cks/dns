@@ -9,10 +9,10 @@ OCTODNS_ARGS := --config-file octodns.yaml
 ENVVARS := \
     CLOUDFLARE_TOKEN="$$(pass cloudflare/apikey)" \
     CLOUDFLARE_EMAIL="$$(pass cloudflare/email)" \
-    GCORE_TOKEN="$$(pass gcore/apikey)"
+    DO_TOKEN="$$(pass digitalocean/token)"
 .PHONY: plan
 plan:
-	env $(ENVVARS) sh -c 'source venv/bin/activate && octodns-sync $(OCTODNS_ARGS)'
+	env $(ENVVARS) sh -c '. venv/bin/activate && octodns-sync $(OCTODNS_ARGS)'
 .PHONY: apply
 apply:
-	env $(ENVVARS) sh -c 'source venv/bin/activate && octodns-sync $(OCTODNS_ARGS) --doit'
+	env $(ENVVARS) sh -c '. venv/bin/activate && octodns-sync $(OCTODNS_ARGS) --doit'

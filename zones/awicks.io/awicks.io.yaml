@@ -21,7 +21,10 @@
     # N.B. using TXT type since cloudflare throws an error for SPF type
   - type: TXT
     ttl: 3600
-    value: v=spf1 include:spf.stackmail.com a mx -all
+    value: >-
+      v=spf1
+      include:spf.stackmail.com
+      -all
 
 _dmarc:
   type: TXT
