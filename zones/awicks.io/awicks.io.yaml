@@ -120,9 +120,3 @@ webmail:
 
 www:
   <<: *aw1cks_github_pages
-
-testrecord:
-  type: A
-  ttl: 3600
-  values:
-    - 192.0.2.1
