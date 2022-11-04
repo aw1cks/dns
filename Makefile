@@ -1,18 +1,34 @@
-# vim: expandtab ts=4 sw=4
+# vim: noexpandtab ts=4 sw=4
+
+.DEFAULT_GOAL := plan
+
+
+
+VENV_NAME := venv
+ACTIVATE_VENV := . $(VENV_NAME)/bin/activate
+
 .PHONY: venv
 venv:
 	python3 -m venv venv
-	sh -c 'source venv/bin/activate && pip install -r requirements.txt'
+	sh -c '$(ACTIVATE_VENV) && pip install -r requirements.txt'
 
 
-OCTODNS_ARGS := --config-file octodns.yaml
-ENVVARS := \
-    CLOUDFLARE_TOKEN="$$(pass cloudflare/apikey)" \
-    CLOUDFLARE_EMAIL="$$(pass cloudflare/email)" \
-    DO_TOKEN="$$(pass digitalocean/token)"
+
+ENVVARS := env \
+	DO_TOKEN="$$(pass digitalocean/token)" \
+	GCORE_TOKEN="$$(pass gcore/apikey)"
+OCTODNS_COMMON := $(ACTIVATE_VENV) && octodns-sync --config-file octodns.yaml
+OCTODNS_plan := $(OCTODNS_COMMON)
+OCTODNS_apply := $(OCTODNS_COMMON) --doit
+
+.PHONY: octodns-%
+octodns-%: venv
+	$(ENVVARS) sh -c '$(OCTODNS_$*)'
+
+
+
 .PHONY: plan
-plan: venv
-	env $(ENVVARS) sh -c '. venv/bin/activate && octodns-sync $(OCTODNS_ARGS)'
+plan: octodns-plan
+
 .PHONY: apply
-apply: venv
-	env $(ENVVARS) sh -c '. venv/bin/activate && octodns-sync $(OCTODNS_ARGS) --doit'
+apply: octodns-apply

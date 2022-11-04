@@ -1,49 +1,45 @@
 ---
+manager:
+  include_meta: true
+  max_workers: 2
+  plan_outputs:
+    html:
+      class: octodns.provider.plan.PlanHtml
 
 common_providers:
+  - &dns_provider
+    strict_supports: true
   - &yaml_provider
     class: octodns.provider.yaml.YamlProvider
     default_ttl: 3600
-    enforce_order: False
-
-common_targets: &common_targets
-  - cloudflare
-  - digitalocean
-
-
-
-manager:
-  include_meta: False
-  max_workers: 2
-
+    enforce_order: false
 providers:
   # Zones
   awicks_io:
     <<: *yaml_provider
     directory: ./zones/awicks.io
-
   alexwicks_io:
     <<: *yaml_provider
     directory: ./zones/alexwicks.io
-
   # DNS Providers
-  cloudflare:
-    class: octodns_cloudflare.CloudflareProvider
-    email: env/CLOUDFLARE_EMAIL
-    token: env/CLOUDFLARE_TOKEN
-
   digitalocean:
+    <<: *dns_provider
     class: octodns_digitalocean.DigitalOceanProvider
     token: env/DO_TOKEN
+  gcore:
+    <<: *dns_provider
+    class: octodns_gcore.GCoreProvider
+    token_type: APIKey
+    token: env/GCORE_TOKEN
 
-
-
+common_targets: &common_targets
+  - digitalocean
+  - gcore
 zones:
   awicks.io.:
     sources:
       - awicks_io
     targets: *common_targets
-
   alexwicks.io.:
     sources:
       - alexwicks_io

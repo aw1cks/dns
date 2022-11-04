@@ -2,23 +2,30 @@
 
 # Apex
 '':
-  # CNAMEs are not supported at the apex
-  # ALIAS must be used instead
-  - type: ALIAS
+  - type: A
     ttl: 3600
-    value: aw1cks.github.io.
-
-    # MX for email delivery
-    # Only one provider, stackmail
+    # https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site#configuring-an-apex-domain
+    values:
+      - 185.199.108.153
+      - 185.199.109.153
+      - 185.199.110.153
+      - 185.199.111.153
+  - type: AAAA
+    ttl: 3600
+    values:
+      - 2606:50c0:8000::153
+      - 2606:50c0:8001::153
+      - 2606:50c0:8002::153
+      - 2606:50c0:8003::153
+  # MX for email delivery
+  # Only one provider, stackmail
   - type: MX
     ttl: 3600
     values:
       - exchange: mx.stackmail.com.
         preference: 10
-
-    # SPF record for email
-    # Include stackmail's SPF
-    # N.B. using TXT type since cloudflare throws an error for SPF type
+  # SPF record for email
+  # Include stackmail's SPF
   - type: TXT
     ttl: 3600
     value: >-
@@ -41,11 +48,15 @@ autodiscover:
   ttl: 3600
   value: autodiscover.stackmail.com.
 
-# MX discovery
-mail:
+cv: &aw1cks_github_pages
   type: CNAME
   ttl: 3600
-  value: mx.stackmail.com.
+  value: aw1cks.github.io.
+
+home: &aw1cks_forks_github_pages
+  type: CNAME
+  ttl: 3600
+  value: aw1cks-forks.github.io.
 
 # IMAP discovery
 imap:
@@ -53,11 +64,47 @@ imap:
   ttl: 3600
   value: imap.stackmail.com.
 
+k8s:
+  - type: A
+    ttl: 3600
+    values:
+      - 51.195.149.224
+  - type: AAAA
+    ttl: 3600
+    values:
+      - 2001:41d0:801:2000::2e06
+
+lf:
+  type: A
+  ttl: 3600
+  values:
+    - 88.97.11.80
+
+# MX discovery
+mail:
+  type: CNAME
+  ttl: 3600
+  value: mx.stackmail.com.
+
+mumble: &k8s_cname
+  type: CNAME
+  ttl: 3600
+  value: k8s.awicks.io.
+
+
 # DKIM key
 s1._domainkey:
   type: TXT
   ttl: 3600
-  value: v=DKIM1\;k=rsa\;h=sha256\;g=*\;n=\;s=*\;t=s\;p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmVIVFVjbs/EDLPnREE8uTVBFdOw3s5k5DnEIVO379hy9/T41zH3guKg3AeRkt1nfrDPkg/vJ5Accnj3k78oHheS5E3itqg0lA32Rw+SIVGZW+npuK46FPiug4N4+bKHcIgwN2OPRZvuGHnwYqL+UlDQ8a5IMkqhLAt2WBdO1a6eaN6OsktVZzj4x7z39TabVChKEOkqpP00OfrFHrc4MWrhyx71lXmpQ75ug9TMMnFTZQiDtyLJ/O0MBDYfrQVMQZlp+IlxzRpKGepKxfNJFMBLFut+EqAxOWCWjbx2/Dbwe/40oTUnPi0Q6dKifVBJ/5wJvioFs9BNnijUB7i3DGQIDAQAB
+  value: >-
+    v=DKIM1\;
+    k=rsa\;
+    h=sha256\;
+    g=*\;
+    n=\;
+    s=*\;
+    t=s\;
+    p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmVIVFVjbs/EDLPnREE8uTVBFdOw3s5k5DnEIVO379hy9/T41zH3guKg3AeRkt1nfrDPkg/vJ5Accnj3k78oHheS5E3itqg0lA32Rw+SIVGZW+npuK46FPiug4N4+bKHcIgwN2OPRZvuGHnwYqL+UlDQ8a5IMkqhLAt2WBdO1a6eaN6OsktVZzj4x7z39TabVChKEOkqpP00OfrFHrc4MWrhyx71lXmpQ75ug9TMMnFTZQiDtyLJ/O0MBDYfrQVMQZlp+IlxzRpKGepKxfNJFMBLFut+EqAxOWCWjbx2/Dbwe/40oTUnPi0Q6dKifVBJ/5wJvioFs9BNnijUB7i3DGQIDAQAB
 
 # SMTP discovery
 smtp:
@@ -71,39 +118,5 @@ webmail:
   ttl: 3600
   value: stackmail.com.
 
-
-
-lf:
-  type: A
-  ttl: 3600
-  values:
-    - 88.97.11.80
-
-k8s:
-  - type: A
-    ttl: 3600
-    values:
-      - 51.195.149.224
-  - type: AAAA
-    ttl: 3600
-    values:
-      - 2001:41d0:801:2000::2e06
-
-mumble: &k8s_cname
-  type: CNAME
-  ttl: 3600
-  value: k8s.awicks.io.
-
-
-
-cv: &aw1cks_github_pages
-  type: CNAME
-  ttl: 3600
-  value: aw1cks.github.io.
 www:
   <<: *aw1cks_github_pages
-
-home: &aw1cks_forks_github_pages
-  type: CNAME
-  ttl: 3600
-  value: aw1cks-forks.github.io.

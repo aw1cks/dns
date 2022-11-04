@@ -1,16 +1,11 @@
 ---
 
 '':
-  - type: ALIAS
-    ttl: 3600
-    value: k8s.awicks.io.
-
   - type: MX
     ttl: 3600
     values:
       - exchange: mx.stackmail.com.
         preference: 10
-
   - type: TXT
     ttl: 3600
     value: >-
@@ -35,7 +30,15 @@ autodiscover:
 s1._domainkey:
   type: TXT
   ttl: 3600
-  value: v=DKIM1\;k=rsa\;h=sha256\;g=*\;n=\;s=*\;t=s\;p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1jp7kfYu6+pjpOR311E3RMXWFw9uiipHEMOrFtdq08IvUhdSdzovVzRp8CQjd6aWYRJfWV9n0svbxvAbwoaukK1fcZoV2l9iiQhrL77MFDx+KmeAacNNMqjMnDKh0WQDpIT9r/txhnMKv5UTMn3iCkjdX8Fa6fqx581WY1uhZ0EWi1qxj8nSJ8MIHaD29LjyiRGCrS5AqUBaCdrnU2fnN51NDyeLT2BVOikKoBqQJ54OiXaQI8VH1FwgTtEgcXhOlNt+UVB/qoU9fRPk311jodnhk8MVG43JOieVFFqZlpiDWOk3LUWwNnI4jnJxeW2mqqb+I7WK/HORl2hffeTyPwIDAQAB
+  value: >-
+    v=DKIM1\;
+    k=rsa\;
+    h=sha256\;
+    g=*\;
+    n=\;
+    s=*\;
+    t=s\;
+    p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1jp7kfYu6+pjpOR311E3RMXWFw9uiipHEMOrFtdq08IvUhdSdzovVzRp8CQjd6aWYRJfWV9n0svbxvAbwoaukK1fcZoV2l9iiQhrL77MFDx+KmeAacNNMqjMnDKh0WQDpIT9r/txhnMKv5UTMn3iCkjdX8Fa6fqx581WY1uhZ0EWi1qxj8nSJ8MIHaD29LjyiRGCrS5AqUBaCdrnU2fnN51NDyeLT2BVOikKoBqQJ54OiXaQI8VH1FwgTtEgcXhOlNt+UVB/qoU9fRPk311jodnhk8MVG43JOieVFFqZlpiDWOk3LUWwNnI4jnJxeW2mqqb+I7WK/HORl2hffeTyPwIDAQAB
 
 webmail:
   type: CNAME
