@@ -1,0 +1,40 @@
+---
+
+name: Lint YAML & Makefile
+# yamllint disable-line rule:truthy
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    paths:
+      - '**/*.yaml'
+      - Makefile
+jobs:
+  lint-yaml:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: frenck/action-yamllint@v1
+  lint-makefile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Check that targets compile
+        run: |
+          make -n plan
+          make -n apply
+  octodns-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          cache: pip
+          python-version: '3.10'
+      - run: pip install -r requirements.txt
+      - run: octodns-validate --config-file octodns.yaml --debug
+        env:
+          DO_TOKEN: ${{ secrets.do_token }}
+          GCORE_TOKEN: ${{ secrets.gcore_token }}

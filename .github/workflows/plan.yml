@@ -1,0 +1,31 @@
+---
+
+name: OctoDNS plan
+# yamllint disable-line rule:truthy
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    paths:
+      - 'zones/**/*'
+      - octodns.yaml
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - uses: solvaholic/octodns-sync@7404fecaa93ed9216e59b2fba092bce66684a8b4
+        with:
+          config_path: octodns.yaml
+          add_pr_comment: 'Yes'
+          pr_comment_token: ${{ github.token }}
+        env:
+          DO_TOKEN: ${{ secrets.do_token }}
+          GCORE_TOKEN: ${{ secrets.gcore_token }}
