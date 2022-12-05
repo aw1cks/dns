@@ -28,4 +28,6 @@ jobs:
           pr_comment_token: ${{ github.token }}
         env:
           DO_TOKEN: ${{ secrets.do_token }}
-          GCORE_TOKEN: ${{ secrets.gcore_token }}
+          OVH_APPLICATION_KEY: ${{ secrets.ovh_application_key }}
+          OVH_APPLICATION_SECRET: ${{ secrets.ovh_application_secret }}
+          OVH_CONSUMER_KEY: ${{ secrets.ovh_consumer_key }}
