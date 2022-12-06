@@ -33,6 +33,39 @@
       include:spf.stackmail.com
       -all
 
+### Letsencrypt setup
+# Problem: We have multi-authoritative setup
+# Letsencrypt will resolve our _acme-challenge record to verify ownership
+# This uses letsencrypt's recursors, which will pick a random NS
+# Unless we add our validation record to _all_ providers, this could fail
+#
+# Solution:
+# 1. Create CNAMEs for the _acme-challenge records we care about
+# 2. Point these to another zone, which is delegated to only _one_ provider
+# 3. Our ACME client only needs to talk to one DNS API to add records
+# Reference: https://github.com/acmesh-official/acme.sh/wiki/DNS-alias-mode
+# N.B. this zone is not redundant across providers
+# However, LE certs have 3mo expiry - plenty of time to intervene if needed...
+acme:
+  type: NS
+  ttl: 3600
+  values:
+    - ns1.digitalocean.com.
+    - ns2.digitalocean.com.
+    - ns3.digitalocean.com.
+_acme-challenge: &acme_cname
+  type: CNAME
+  ttl: 3600
+  value: _acme-challenge.acme.awicks.io.
+_acme-challenge.www:
+  <<: *acme_cname
+_acme-challenge.lf:
+  <<: *acme_cname
+_acme-challenge.vsphere.lf:
+  <<: *acme_cname
+_acme-challenge.www.lf:
+  <<: *acme_cname
+
 _dmarc:
   type: TXT
   ttl: 3600

@@ -16,7 +16,9 @@ venv:
 
 ENVVARS := env \
 	DO_TOKEN="$$(pass digitalocean/token)" \
-	GCORE_TOKEN="$$(pass gcore/apikey)"
+	OVH_APPLICATION_KEY="$$(pass ovhcloud/application_key)" \
+    OVH_APPLICATION_SECRET="$$(pass ovhcloud/application_secret)" \
+    OVH_CONSUMER_KEY="$$(pass ovhcloud/consumer_key)"
 OCTODNS_COMMON := $(ACTIVATE_VENV) && octodns-sync --config-file octodns.yaml
 OCTODNS_plan := $(OCTODNS_COMMON)
 OCTODNS_apply := $(OCTODNS_COMMON) --doit
