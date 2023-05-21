@@ -68,10 +68,6 @@ _acme-challenge.www:
   <<: *acme_cname
 _acme-challenge.lf:
   <<: *acme_cname
-_acme-challenge.vsphere.lf:
-  <<: *acme_cname
-_acme-challenge.www.lf:
-  <<: *acme_cname
 
 _dmarc:
   type: TXT
@@ -97,6 +93,14 @@ home: &aw1cks_forks_github_pages
   type: CNAME
   ttl: 3600
   value: aw1cks-forks.github.io.
+
+hcloud:
+  type: NS
+  ttl: 3600
+  values:
+    - helium.ns.hetzner.de.
+    - hydrogen.ns.hetzner.de.
+    - oxygen.ns.hetzner.de.
 
 # IMAP discovery
 imap:
