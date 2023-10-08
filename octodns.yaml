@@ -3,8 +3,8 @@ manager:
   include_meta: true
   max_workers: 2
   plan_outputs:
-    html:
-      class: octodns.provider.plan.PlanHtml
+    markdown:
+      class: octodns.provider.plan.PlanMarkdown
 
 common_providers:
   - &dns_provider
