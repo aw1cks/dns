@@ -28,10 +28,8 @@
   # Include stackmail's SPF
   - type: TXT
     ttl: 3600
-    value: >-
-      v=spf1
-      include:spf.stackmail.com
-      -all
+    values:
+      - v=spf1 include:spf.stackmail.com -all
 
 ### Letsencrypt setup
 # Problem: We have multi-authoritative setup
@@ -101,16 +99,6 @@ imap:
   ttl: 3600
   value: imap.stackmail.com.
 
-k8s:
-  - type: A
-    ttl: 3600
-    values:
-      - 51.195.149.224
-  - type: AAAA
-    ttl: 3600
-    values:
-      - 2001:41d0:801:2000::2e06
-
 lf:
   type: A
   ttl: 3600
@@ -123,11 +111,11 @@ mail:
   ttl: 3600
   value: mx.stackmail.com.
 
-mumble: &k8s_cname
-  type: CNAME
+mumble:
+  type: A
   ttl: 3600
-  value: k8s.awicks.io.
-
+  values:
+    - 78.47.138.224
 
 # DKIM key
 s1._domainkey:
