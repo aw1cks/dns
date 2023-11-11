@@ -111,11 +111,14 @@ mail:
   ttl: 3600
   value: mx.stackmail.com.
 
-mumble:
+mumble: &mumble
   type: A
   ttl: 3600
   values:
     - 78.47.138.224
+
+rtmp:
+  <<: *mumble
 
 # DKIM key
 s1._domainkey:
