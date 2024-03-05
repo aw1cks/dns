@@ -103,7 +103,7 @@ lf:
   type: A
   ttl: 3600
   values:
-    - 88.97.11.80
+    - 217.155.117.57
 
 # MX discovery
 mail:
