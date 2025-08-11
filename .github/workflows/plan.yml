@@ -17,12 +17,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
-          cache: pip
-      - run: pip install -r requirements.txt
-      - uses: solvaholic/octodns-sync@c7fd61b8e988b56687199aeb2c711601f4b1e1c1
+          python-version-file: "pyproject.toml"
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.8.8"
+          enable-cache: true
+      - name: Get dependencies
+        run: |
+          uv venv .venv
+          UV_PROJECT_ENVIRONMENT='.venv' uv sync
+          echo "${PWD}/.venv/bin" >> "$GITHUB_PATH"
+      - uses: solvaholic/octodns-sync@v3.1.1
         with:
           config_path: octodns.yaml
           add_pr_comment: 'Yes'

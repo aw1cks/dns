@@ -1,3 +1,0 @@
-octodns==1.4.0
-octodns-digitalocean@git+https://github.com/octodns/octodns-digitalocean.git@6ce881d877d1aa0d457fa42975dbd57b7fe19160
-octodns-ovh@git+https://github.com/octodns/octodns-ovh.git@7fd2e901d9951cbf50e8e027191123c68c09d6b1
