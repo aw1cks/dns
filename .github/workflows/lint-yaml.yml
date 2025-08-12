@@ -1,0 +1,17 @@
+---
+
+name: Lint YAML
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    paths:
+      - '**/*.yaml'
+jobs:
+  lint-yaml:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: frenck/action-yamllint@v1
