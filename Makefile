@@ -13,7 +13,7 @@ OCTODNS_apply := $(OCTODNS_COMMON) --doit
 
 .PHONY: octodns-%
 octodns-%:
-	$(ENVVARS) sh -c '$(OCTODNS_$*)'
+	$(ENVVARS) $(OCTODNS_$*)
 
 .PHONY: plan
 plan: octodns-plan

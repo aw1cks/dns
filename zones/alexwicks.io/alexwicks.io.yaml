@@ -11,14 +11,14 @@
   - type: TXT
     ttl: 3600
     values:
-      - apple-domain=bMWa1ijNG41kEOf
+      - apple-domain=bMWa1ijlNG41kEOf
       - >-
         v=spf1
         include:icloud.com
         ~all
 
 # DKIM key
-s1._domainkey:
+sig1._domainkey:
   type: CNAME
   ttl: 3600
   value: sig1.dkim.alexwicks.io.at.icloudmailadmin.com.

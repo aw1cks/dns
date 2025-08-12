@@ -17,19 +17,29 @@
       - 2606:50c0:8001::153
       - 2606:50c0:8002::153
       - 2606:50c0:8003::153
-  # MX for email delivery
-  # Only one provider, stackmail
+
   - type: MX
     ttl: 3600
     values:
-      - exchange: mx.stackmail.com.
+      - exchange: mx01.mail.icloud.com.
         preference: 10
-  # SPF record for email
-  # Include stackmail's SPF
+      - exchange: mx02.mail.icloud.com.
+        preference: 10
   - type: TXT
     ttl: 3600
     values:
-      - v=spf1 include:spf.stackmail.com -all
+      - apple-domain=n16Lv8A4qKoIAYrN
+      - >-
+        v=spf1
+        include:icloud.com
+        ~all
+
+# DKIM key
+sig1._domainkey:
+  type: CNAME
+  ttl: 3600
+  value: sig1.dkim.awicks.io.at.icloudmailadmin.com.
+
 
 ### Letsencrypt setup
 # Problem: We have multi-authoritative setup
@@ -60,21 +70,6 @@ _acme-challenge.www:
 _acme-challenge.lf:
   <<: *acme_cname
 
-_dmarc:
-  type: TXT
-  ttl: 3600
-  # p=quarantine -> Quarantine mail that doesn't match SPF
-  value: >-
-    v=DMARC1\;
-    p=quarantine\;
-    rua=mailto:bfd2a46a@mxtoolbox.dmarc-report.com\;
-
-# Email client autodiscovery
-autodiscover:
-  type: CNAME
-  ttl: 3600
-  value: autodiscover.stackmail.com.
-
 cv: &aw1cks_github_pages
   type: CNAME
   ttl: 3600
@@ -85,31 +80,12 @@ home: &aw1cks_forks_github_pages
   ttl: 3600
   value: aw1cks-forks.github.io.
 
-hcloud:
-  type: NS
-  ttl: 3600
-  values:
-    - helium.ns.hetzner.de.
-    - hydrogen.ns.hetzner.de.
-    - oxygen.ns.hetzner.de.
-
-# IMAP discovery
-imap:
-  type: CNAME
-  ttl: 3600
-  value: imap.stackmail.com.
 
 lf:
   type: A
   ttl: 3600
   values:
     - 217.155.117.57
-
-# MX discovery
-mail:
-  type: CNAME
-  ttl: 3600
-  value: mx.stackmail.com.
 
 mumble: &mumble
   type: A
@@ -119,32 +95,6 @@ mumble: &mumble
 
 rtmp:
   <<: *mumble
-
-# DKIM key
-s1._domainkey:
-  type: TXT
-  ttl: 3600
-  value: >-
-    v=DKIM1\;
-    k=rsa\;
-    h=sha256\;
-    g=*\;
-    n=\;
-    s=*\;
-    t=s\;
-    p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmVIVFVjbs/EDLPnREE8uTVBFdOw3s5k5DnEIVO379hy9/T41zH3guKg3AeRkt1nfrDPkg/vJ5Accnj3k78oHheS5E3itqg0lA32Rw+SIVGZW+npuK46FPiug4N4+bKHcIgwN2OPRZvuGHnwYqL+UlDQ8a5IMkqhLAt2WBdO1a6eaN6OsktVZzj4x7z39TabVChKEOkqpP00OfrFHrc4MWrhyx71lXmpQ75ug9TMMnFTZQiDtyLJ/O0MBDYfrQVMQZlp+IlxzRpKGepKxfNJFMBLFut+EqAxOWCWjbx2/Dbwe/40oTUnPi0Q6dKifVBJ/5wJvioFs9BNnijUB7i3DGQIDAQAB
-
-# SMTP discovery
-smtp:
-  type: CNAME
-  ttl: 3600
-  value: smtp.stackmail.com.
-
-# email WebUI
-webmail:
-  type: CNAME
-  ttl: 3600
-  value: stackmail.com.
 
 www:
   <<: *aw1cks_github_pages
