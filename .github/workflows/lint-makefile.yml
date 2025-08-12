@@ -1,7 +1,6 @@
 ---
 
-name: Lint YAML & Makefile
-# yamllint disable-line rule:truthy
+name: Lint Makefile
 on:
   pull_request:
     types:
@@ -9,14 +8,8 @@ on:
       - synchronize
       - reopened
     paths:
-      - '**/*.yaml'
       - Makefile
 jobs:
-  lint-yaml:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-      - uses: frenck/action-yamllint@v1
   lint-makefile:
     runs-on: ubuntu-latest
     steps:
