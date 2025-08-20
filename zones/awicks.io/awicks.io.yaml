@@ -75,6 +75,11 @@ cv: &aw1cks_github_pages
   ttl: 3600
   value: aw1cks.github.io.
 
+dziewanna.pub:
+  type: CNAME
+  ttl: 3600
+  value: z5zkyafh.srv.binaryracks.net.
+
 home: &aw1cks_forks_github_pages
   type: CNAME
   ttl: 3600
@@ -95,13 +100,9 @@ lp:
     value: 2a01:4b00:ab3d:a200::1
 
 mumble: &mumble
-  type: A
+  type: CNAME
   ttl: 3600
-  values:
-    - 78.47.138.224
-
-rtmp:
-  <<: *mumble
+  value: dziewanna.pub.awicks.io.
 
 www:
   <<: *aw1cks_github_pages
