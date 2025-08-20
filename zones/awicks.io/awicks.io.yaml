@@ -86,6 +86,13 @@ lf:
   ttl: 3600
   values:
     - 217.155.117.57
+lp:
+  - type: A
+    ttl: 3600
+    value: 89.36.67.149
+  - type: AAAA
+    ttl: 3600
+    value: 2a01:4b00:ab3d:a200::1
 
 mumble: &mumble
   type: A
