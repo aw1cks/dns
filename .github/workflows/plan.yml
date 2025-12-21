@@ -11,7 +11,7 @@ on:
     paths:
       - 'zones/**/*'
       - octodns.yaml
-      - requirements.txt
+      - pyproject.toml
 jobs:
   plan:
     runs-on: ubuntu-latest

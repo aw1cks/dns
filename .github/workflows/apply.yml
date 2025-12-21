@@ -9,7 +9,7 @@ on:
     paths:
       - 'zones/**/*.yaml'
       - octodns.yaml
-      - requirements.txt
+      - pyproject.toml
 jobs:
   plan:
     runs-on: ubuntu-latest
