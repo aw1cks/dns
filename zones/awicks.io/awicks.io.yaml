@@ -32,7 +32,7 @@
       - >-
         v=spf1
         include:icloud.com
-        ~all
+        -all
 
 # DKIM key
 sig1._domainkey:
@@ -40,6 +40,13 @@ sig1._domainkey:
   ttl: 3600
   value: sig1.dkim.awicks.io.at.icloudmailadmin.com.
 
+_dmarc:
+  type: TXT
+  value: >-
+    v=DMARC1\;
+    p=quarantine\;
+    pct=100\;
+    rua=mailto:postmaster@awicks.io
 
 ### Letsencrypt setup
 # Problem: We have multi-authoritative setup
