@@ -13,6 +13,6 @@ jobs:
   lint-makefile:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Check that targets compile
         run: make -n
