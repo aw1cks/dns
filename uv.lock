@@ -56,7 +56,7 @@ dependencies = [
 requires-dist = [
     { name = "octodns", specifier = "==1.15.0" },
     { name = "octodns-digitalocean", specifier = "==1.0.0" },
-    { name = "octodns-ovh", specifier = "==1.1.0" },
+    { name = "octodns-ovh", specifier = "==1.2.0" },
 ]
 
 [[package]]
@@ -136,15 +136,15 @@ wheels = [
 
 [[package]]
 name = "octodns-ovh"
-version = "1.1.0"
+version = "1.2.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "octodns" },
     { name = "ovh" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/a7/dc/ddcdbda6c46cc9ee733e7e7f3a9f877d67418e257291c4dd890c1483d3bc/octodns_ovh-1.1.0.tar.gz", hash = "sha256:23ab6bd53d5ce6c9bbcdec4c5ace2a867733aa86131a8499daa566c6dcd2dfe3", size = 9749, upload-time = "2025-07-01T14:28:13.641Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/2f/3f/e2013593186dd02e5319fbeb2a4c859e0cecd1658fbeb7723f21410bd29e/octodns_ovh-1.2.0.tar.gz", hash = "sha256:2571f9847855b59aa1ccc59b47754bb1c950adb634f385802de0ab4b7437ca3e", size = 10118, upload-time = "2026-04-04T00:02:07.3Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/90/28/bacc3ce713e8df2956923d093af0a29782cc5555704c429b25a57a577ba1/octodns_ovh-1.1.0-py3-none-any.whl", hash = "sha256:53a260e9f19e440f7d951e42b541b03f7b5232332520024da05c19ba2c88e7c0", size = 6296, upload-time = "2025-07-01T14:28:12.778Z" },
+    { url = "https://files.pythonhosted.org/packages/7e/34/b95b2b0d4bb691b40bc242257b7e4b732cc61395aa1e4d8bf12bbc5ee6cb/octodns_ovh-1.2.0-py3-none-any.whl", hash = "sha256:00e2715e399d0e08713aa57f195ecb2f2d4808b8e0b803a220343b0b74538331", size = 6392, upload-time = "2026-04-04T00:02:06.314Z" },
 ]
 
 [[package]]
